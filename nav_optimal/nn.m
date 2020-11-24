@@ -7,7 +7,7 @@ train_ou = train_data(:, 1);
 
 accuracy = zeros(100, 100);
 L(L_N, 1) = Layer;
-for l1 = 16:32
+for l1 = 16:99
     for l2 = 16:99
         suffix = strcat( '_', num2str(l1), '_', num2str(l2), '.t' );
         L_NEURONS_N = readmatrix( strcat( 'architect', suffix ), opts ); % [N]umber of [NEURONS] in [L]ayers
