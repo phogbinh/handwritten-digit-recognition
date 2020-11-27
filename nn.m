@@ -1,6 +1,6 @@
 train_data = load('mnist_train.csv');
 train_data_n = numel( train_data(:, 1) );
-train_in = train_data(:, 2:785);
+train_in = train_data(:, 2:785) / Def.GRAY_N;
 train_ou = train_data(:, 1);
 
 L_NEURONS_N = readmatrix('architect'); % [N]umber of [NEURONS] in [L]ayers
@@ -55,7 +55,7 @@ end
 
 test_data = load('mnist_test.csv');
 test_data_n = numel( test_data(:, 1) );
-test_in = test_data(:, 2:785);
+test_in = test_data(:, 2:785) / Def.GRAY_N;
 test_ou = test_data(:, 1);
 
 correct_n = 0;
