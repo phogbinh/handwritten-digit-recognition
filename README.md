@@ -4,3 +4,5 @@ This is a MATLAB implementation of a 2 hidden-layers neural network that recogni
 ## References
 1. He, K., Zhang, X., Ren, S. and Sun, J., 2015. *Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification*. [online] Available at: <https://arxiv.org/abs/1502.01852v1> [Accessed 16 November 2020].
 2. Ramachandran, P., Zoph, B. and Le, Q., 2017. *Searching for Activation Functions*. [online] Available at: <https://arxiv.org/abs/1710.05941v2> [Accessed 10 November 2020].
+## Tutorial
+https://youtu.be/iykVSmfFJzk
