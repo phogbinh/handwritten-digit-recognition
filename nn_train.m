@@ -32,12 +32,12 @@ for train_round_i = 1:Def.TRAIN_ROUNDS_N
             end
 
             % backpropagation
-            dcdb = ( 2 * ( L(L_N).y - r ) ) .* f_d( L(L_N).z );
+            dcdb = ( 2 * ( L(L_N).y - r ) ) .* df_dz( L(L_N).z );
             dcdw = dcdb * transpose( L(L_N - 1).y );
             L(L_N).dcdb_cum = L(L_N).dcdb_cum + dcdb;
             L(L_N).dcdw_cum = L(L_N).dcdw_cum + dcdw;
             for l_i = (L_N - 1):-1:2
-                dcdb = ( transpose( L(l_i + 1).w ) * dcdb ) .* f_d( L(l_i).z );
+                dcdb = ( transpose( L(l_i + 1).w ) * dcdb ) .* df_dz( L(l_i).z );
                 dcdw = dcdb * transpose( L(l_i - 1).y );
                 L(l_i).dcdb_cum = L(l_i).dcdb_cum + dcdb;
                 L(l_i).dcdw_cum = L(l_i).dcdw_cum + dcdw;
