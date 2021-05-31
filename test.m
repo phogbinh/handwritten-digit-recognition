@@ -18,15 +18,15 @@ for test_data_i = 1:TEST_DATA_N
     end
     
     max = 0;
-    out_predict = -1;
+    pred_ou = -1; % [pred]icted [ou]tput
     for i = 1:10
         if layers_associates(LAYERS_N).y(i) > max
             max = layers_associates(LAYERS_N).y(i);
-            out_predict = i - 1;
+            pred_ou = i - 1;
         end
     end
     
-    if out_predict == TEST_OU(test_data_i)
+    if pred_ou == TEST_OU(test_data_i)
         correct_n = correct_n + 1;
     end
 end
