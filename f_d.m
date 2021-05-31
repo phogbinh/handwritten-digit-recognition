@@ -1,4 +1,4 @@
-function result = f_d(x)
-    result = ( exp(-x) .* (x + 1) + 1 ) ./ ( ( 1 + exp(-x) ) .* ( 1 + exp(-x) ) );
+function result = f_d(z)
+    result = ( exp(-z) .* (z + 1) + 1 ) ./ ( ( 1 + exp(-z) ) .* ( 1 + exp(-z) ) );
     result(isnan(result)) = 0;
 end
