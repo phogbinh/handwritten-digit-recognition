@@ -1,6 +1,6 @@
 TRAIN_DATA = load('mnist_train.csv');
 TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
-train_in = TRAIN_DATA(:, 2:785) / Def.GRAY_N;
+TRAIN_IN = TRAIN_DATA(:, 2:785) / Def.GRAY_N;
 train_ou = TRAIN_DATA(:, 1);
 
 L_NEURONS_N = readmatrix('architect'); % [N]umber of [NEURONS] in [L]ayers
@@ -25,7 +25,7 @@ for train_round_i = 1:Def.TRAIN_ROUNDS_N
             desired_output_layer = one_hot_vector( train_ou(train_data_i) );
 
             % feedfoward
-            L(1).y = transpose( train_in(train_data_i, :) );
+            L(1).y = transpose( TRAIN_IN(train_data_i, :) );
             for l_i = 2:L_N
                 L(l_i).z = L(l_i).w * L(l_i-1).y + L(l_i).b;
                 L(l_i).y = f( L(l_i).z );
