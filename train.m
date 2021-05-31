@@ -1,3 +1,4 @@
+% input
 TRAIN_DATA = load('mnist_train.csv');
 TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
 TRAIN_IN = normalized_grayscale( TRAIN_DATA(:, 2:785) );
@@ -13,6 +14,7 @@ for l_i = 2:LAYERS_N
 end
 layers_associates(LAYERS_N, 1) = layer_associates;
 
+% train
 for train_round_i = 1:nn.TRAIN_ROUNDS_N
     for mini_batch_i = 1:(TRAIN_DATA_N / nn.MINI_BATCH_LENGTH)
         for l_i = 2:LAYERS_N
@@ -52,5 +54,6 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
     end
 end
 
+% output
 save('trained_parameters', 'layers');
 clear;
