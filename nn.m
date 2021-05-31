@@ -1,4 +1,4 @@
-classdef Def
+classdef nn
     properties (Constant)
         TRAIN_ROUNDS_N = 50 % [N]umber of [TRAIN] [ROUNDS]
         LEARNING_RATE = 0.006

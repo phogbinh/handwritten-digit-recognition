@@ -1,6 +1,6 @@
 TRAIN_DATA = load('mnist_train.csv');
 TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
-TRAIN_IN = TRAIN_DATA(:, 2:785) / Def.GRAY_N;
+TRAIN_IN = TRAIN_DATA(:, 2:785) / nn.GRAY_N;
 TRAIN_OU = TRAIN_DATA(:, 1);
 
 L_NEURONS_N = readmatrix('architect'); % [N]umber of [NEURONS] in [L]ayers
@@ -12,15 +12,15 @@ for l_i = 2:L_N
     L(l_i).w = readmatrix( strcat( 'w', num2str(l_i) ) );
 end
 
-for train_round_i = 1:Def.TRAIN_ROUNDS_N
-    for mini_batch_i = 1:(TRAIN_DATA_N / Def.MINI_BATCH_LENGTH)
+for train_round_i = 1:nn.TRAIN_ROUNDS_N
+    for mini_batch_i = 1:(TRAIN_DATA_N / nn.MINI_BATCH_LENGTH)
         for l_i = 2:L_N
             L(l_i).dcdb_cum = zeros( size( L(l_i).b ) );
             L(l_i).dcdw_cum = zeros( size( L(l_i).w ) );
         end
 
-        start_i = (mini_batch_i - 1) * Def.MINI_BATCH_LENGTH + 1;
-        end_i = start_i + Def.MINI_BATCH_LENGTH - 1;
+        start_i = (mini_batch_i - 1) * nn.MINI_BATCH_LENGTH + 1;
+        end_i = start_i + nn.MINI_BATCH_LENGTH - 1;
         for train_data_i = start_i:end_i
             desired_output_layer = one_hot_vector( TRAIN_OU(train_data_i) );
 
@@ -45,8 +45,8 @@ for train_round_i = 1:Def.TRAIN_ROUNDS_N
         end
 
         for l_i = 2:L_N
-            L(l_i).b = L(l_i).b - L(l_i).dcdb_cum ./ Def.MINI_BATCH_LENGTH * Def.LEARNING_RATE;
-            L(l_i).w = L(l_i).w - L(l_i).dcdw_cum ./ Def.MINI_BATCH_LENGTH * Def.LEARNING_RATE;
+            L(l_i).b = L(l_i).b - L(l_i).dcdb_cum ./ nn.MINI_BATCH_LENGTH * nn.LEARNING_RATE;
+            L(l_i).w = L(l_i).w - L(l_i).dcdw_cum ./ nn.MINI_BATCH_LENGTH * nn.LEARNING_RATE;
         end
     end
 end

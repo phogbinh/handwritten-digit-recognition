@@ -1,6 +1,6 @@
 test_data = load('mnist_test.csv');
 test_data_n = numel( test_data(:, 1) );
-test_in = test_data(:, 2:785) / Def.GRAY_N;
+test_in = test_data(:, 2:785) / nn.GRAY_N;
 test_ou = test_data(:, 1);
 load('trained_parameters', 'L');
 
