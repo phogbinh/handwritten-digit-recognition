@@ -4,8 +4,8 @@ TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
 TRAIN_IN = normalized_grayscale( TRAIN_DATA(:, 2:785) );
 TRAIN_OU = TRAIN_DATA(:, 1);
 clear TRAIN_DATA;
-LAYERS_NEURONS_N = readmatrix('architect'); % [N]umber of [NEURONS] in [L]ayers
-LAYERS_N = numel( LAYERS_NEURONS_N(:, 1) ); % [N]umber of [L]ayers
+LAYERS_NEURONS_N = readmatrix('architect');
+LAYERS_N = numel( LAYERS_NEURONS_N(:, 1) );
 clear LAYERS_NEURONS_N;
 layers(LAYERS_N, 1) = layer;
 for l_i = 2:LAYERS_N
