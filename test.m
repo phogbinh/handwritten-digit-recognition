@@ -3,6 +3,7 @@ TEST_DATA = load('mnist_test.csv');
 TEST_DATA_N = numel( TEST_DATA(:, 1) );
 TEST_IN = normalized_grayscale( TEST_DATA(:, 2:785) );
 TEST_OU = TEST_DATA(:, 1);
+clear TEST_DATA;
 load('trained_parameters', 'layers');
 LAYERS_N = numel(layers);
 layers_associates(LAYERS_N, 1) = layer_associates;
@@ -32,3 +33,4 @@ end
 
 % output
 disp( ['accuracy: ', num2str(correct_n / TEST_DATA_N * 100), '%'] );
+clear;
