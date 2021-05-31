@@ -1,6 +1,6 @@
 TRAIN_DATA = load('mnist_train.csv');
 TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
-TRAIN_IN = TRAIN_DATA(:, 2:785) / nn.GRAY_N;
+TRAIN_IN = normalized_grayscale( TRAIN_DATA(:, 2:785) );
 TRAIN_OU = TRAIN_DATA(:, 1);
 
 L_NEURONS_N = readmatrix('architect'); % [N]umber of [NEURONS] in [L]ayers
