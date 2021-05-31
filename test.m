@@ -11,6 +11,7 @@ correct_n = 0;
 
 % test
 for test_data_i = 1:TEST_DATA_N
+    % feedforward
 	layers_associates(1).y = transpose( TEST_IN(test_data_i, :) );
     for l_i = 2:LAYERS_N
         layers_associates(l_i).z = layers(l_i).w * layers_associates(l_i-1).y + layers(l_i).b;
