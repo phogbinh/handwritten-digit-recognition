@@ -3,6 +3,7 @@ test_data_n = numel( test_data(:, 1) );
 test_in = normalized_grayscale( test_data(:, 2:785) );
 test_ou = test_data(:, 1);
 load('trained_parameters', 'L');
+L_N = numel(L);
 
 correct_n = 0;
 for test_data_i = 1:test_data_n
