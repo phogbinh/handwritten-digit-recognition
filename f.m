@@ -1,4 +1,4 @@
 function result = f(z) % activation function
-    result = z ./ (1 + exp(-z));
+    result = z ./ (1 + exp(-z)); % swish function
     result(isnan(result)) = 0;
 end
