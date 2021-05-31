@@ -3,12 +3,12 @@ test_data_n = numel( test_data(:, 1) );
 test_in = normalized_grayscale( test_data(:, 2:785) );
 test_ou = test_data(:, 1);
 load('trained_parameters', 'L');
-L_N = numel(L);
+LAYERS_N = numel(L);
 
 correct_n = 0;
 for test_data_i = 1:test_data_n
 	L(1).y = transpose( test_in(test_data_i, :) );
-    for l_i = 2:L_N
+    for l_i = 2:LAYERS_N
         L(l_i).z = L(l_i).w * L(l_i-1).y + L(l_i).b;
         L(l_i).y = f( L(l_i).z );
     end
@@ -16,8 +16,8 @@ for test_data_i = 1:test_data_n
     max = 0;
     out_predict = -1;
     for i = 1:10
-        if L(L_N).y(i) > max
-            max = L(L_N).y(i);
+        if L(LAYERS_N).y(i) > max
+            max = L(LAYERS_N).y(i);
             out_predict = i - 1;
         end
     end
