@@ -6,9 +6,9 @@ TEST_OU = TEST_DATA(:, 1);
 load('trained_parameters', 'layers');
 LAYERS_N = numel(layers);
 layers_associates(LAYERS_N, 1) = layer_associates;
+correct_n = 0;
 
 % test
-correct_n = 0;
 for test_data_i = 1:TEST_DATA_N
 	layers_associates(1).y = transpose( TEST_IN(test_data_i, :) );
     for l_i = 2:LAYERS_N
