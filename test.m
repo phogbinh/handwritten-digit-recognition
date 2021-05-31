@@ -28,4 +28,4 @@ for test_data_i = 1:test_data_n
     end
 end
 
-accuracy = correct_n / test_data_n
+disp( ['accuracy: ', num2str(correct_n / test_data_n * 100), '%'] );
