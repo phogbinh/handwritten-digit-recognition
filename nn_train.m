@@ -1,5 +1,5 @@
 TRAIN_DATA = load('mnist_train.csv');
-train_data_n = numel( TRAIN_DATA(:, 1) );
+TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
 train_in = TRAIN_DATA(:, 2:785) / Def.GRAY_N;
 train_ou = TRAIN_DATA(:, 1);
 
@@ -13,7 +13,7 @@ for l_i = 2:L_N
 end
 
 for train_round_i = 1:Def.TRAIN_ROUNDS_N
-    for mini_batch_i = 1:(train_data_n / Def.MINI_BATCH_LENGTH)
+    for mini_batch_i = 1:(TRAIN_DATA_N / Def.MINI_BATCH_LENGTH)
         for l_i = 2:L_N
             L(l_i).dcdb_cum = zeros( size( L(l_i).b ) );
             L(l_i).dcdw_cum = zeros( size( L(l_i).w ) );
