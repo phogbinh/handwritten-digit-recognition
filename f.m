@@ -1,4 +1,4 @@
-function y = f(x)
-    y = x ./ (1 + exp(-x));
-    y(isnan(y)) = 0;
+function result = f(x)
+    result = x ./ (1 + exp(-x));
+    result(isnan(result)) = 0;
 end
