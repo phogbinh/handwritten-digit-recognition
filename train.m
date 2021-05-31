@@ -35,12 +35,12 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
             end
 
             % backpropagation
-            dcdb = ( 2 * ( layers_associates(LAYERS_N).y - desired_output_layer ) ) .* df_dz( layers_associates(LAYERS_N).z );
+            dcdb = ( 2 * ( layers_associates(LAYERS_N).y - desired_output_layer ) ) .* dfdz( layers_associates(LAYERS_N).z );
             dcdw = dcdb * transpose( layers_associates(LAYERS_N - 1).y );
             layers_associates(LAYERS_N).dcdb_cum = layers_associates(LAYERS_N).dcdb_cum + dcdb;
             layers_associates(LAYERS_N).dcdw_cum = layers_associates(LAYERS_N).dcdw_cum + dcdw;
             for l_i = (LAYERS_N - 1):-1:2
-                dcdb = ( transpose( layers(l_i + 1).w ) * dcdb ) .* df_dz( layers_associates(l_i).z );
+                dcdb = ( transpose( layers(l_i + 1).w ) * dcdb ) .* dfdz( layers_associates(l_i).z );
                 dcdw = dcdb * transpose( layers_associates(l_i - 1).y );
                 layers_associates(l_i).dcdb_cum = layers_associates(l_i).dcdb_cum + dcdb;
                 layers_associates(l_i).dcdw_cum = layers_associates(l_i).dcdw_cum + dcdw;
