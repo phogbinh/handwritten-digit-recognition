@@ -9,7 +9,7 @@ for test_data_i = 1:test_data_n
 	L(1).y = transpose( test_in(test_data_i, :) );
     for l_i = 2:L_N
         L(l_i).z = L(l_i).w * L(l_i-1).y + L(l_i).b;
-        L(l_i).y = af( L(l_i).z );
+        L(l_i).y = f( L(l_i).z );
     end
     
     max = 0;

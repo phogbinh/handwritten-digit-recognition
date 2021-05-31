@@ -28,7 +28,7 @@ for train_round_i = 1:Def.TRAIN_ROUNDS_N
             L(1).y = transpose( train_in(train_data_i, :) );
             for l_i = 2:L_N
                 L(l_i).z = L(l_i).w * L(l_i-1).y + L(l_i).b;
-                L(l_i).y = af( L(l_i).z );
+                L(l_i).y = f( L(l_i).z );
             end
 
             % backpropagation
