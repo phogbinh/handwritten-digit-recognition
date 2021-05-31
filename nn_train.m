@@ -22,7 +22,7 @@ for train_round_i = 1:Def.TRAIN_ROUNDS_N
         start_i = (mini_batch_i - 1) * Def.MINI_BATCH_LENGTH + 1;
         end_i = start_i + Def.MINI_BATCH_LENGTH - 1;
         for train_data_i = start_i:end_i
-            r = to_r( train_ou(train_data_i) );
+            desired_output_layer = to_r( train_ou(train_data_i) );
 
             % feedfoward
             L(1).y = transpose( train_in(train_data_i, :) );
@@ -32,7 +32,7 @@ for train_round_i = 1:Def.TRAIN_ROUNDS_N
             end
 
             % backpropagation
-            dcdb = ( 2 * ( L(L_N).y - r ) ) .* df_dz( L(L_N).z );
+            dcdb = ( 2 * ( L(L_N).y - desired_output_layer ) ) .* df_dz( L(L_N).z );
             dcdw = dcdb * transpose( L(L_N - 1).y );
             L(L_N).dcdb_cum = L(L_N).dcdb_cum + dcdb;
             L(L_N).dcdw_cum = L(L_N).dcdw_cum + dcdw;
