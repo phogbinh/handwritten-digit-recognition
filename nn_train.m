@@ -22,7 +22,7 @@ for train_round_i = 1:Def.TRAIN_ROUNDS_N
         start_i = (mini_batch_i - 1) * Def.MINI_BATCH_LENGTH + 1;
         end_i = start_i + Def.MINI_BATCH_LENGTH - 1;
         for train_data_i = start_i:end_i
-            desired_output_layer = to_r( train_ou(train_data_i) );
+            desired_output_layer = one_hot_vector( train_ou(train_data_i) );
 
             % feedfoward
             L(1).y = transpose( train_in(train_data_i, :) );
