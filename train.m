@@ -27,7 +27,7 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
         for train_data_i = start_i:end_i
             desired_output_layer = one_hot_vector( TRAIN_OU(train_data_i) );
 
-            % feedfoward
+            % feedforward
             layers_associates(1).y = transpose( TRAIN_IN(train_data_i, :) );
             for l_i = 2:LAYERS_N
                 layers_associates(l_i).z = layers(l_i).w * layers_associates(l_i-1).y + layers(l_i).b;
