@@ -6,7 +6,7 @@ clear TRAIN_DATA;
 LAYERS_NEURONS_N = readmatrix('architect'); % [N]umber of [NEURONS] in [L]ayers
 LAYERS_N = numel( LAYERS_NEURONS_N(:, 1) ); % [N]umber of [L]ayers
 clear LAYERS_NEURONS_N;
-L(LAYERS_N, 1) = Layer;
+L(LAYERS_N, 1) = layer;
 
 for l_i = 2:LAYERS_N
     L(l_i).b = readmatrix( strcat( 'b', num2str(l_i) ) );

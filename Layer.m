@@ -1,4 +1,4 @@
-classdef Layer
+classdef layer
    properties
       y
       z
