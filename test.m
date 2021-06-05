@@ -33,5 +33,5 @@ for test_data_i = 1:TEST_DATA_N
 end
 
 % output
-disp( ['accuracy: ', num2str(correct_n / TEST_DATA_N * 100), '%'] );
+disp( ['accuracy: ' num2str(correct_n / TEST_DATA_N * 100), '%'] );
 clear;
