@@ -1,4 +1,4 @@
-% input
+%% input
 TEST_DATA = load('mnist_test.csv');
 TEST_DATA_N = numel( TEST_DATA(:, 1) );
 TEST_IN = normalized_grayscale( TEST_DATA(:, 2:785) );
@@ -9,7 +9,7 @@ LAYERS_N = numel(layers);
 layers_associates(LAYERS_N, 1) = layer_associates;
 correct_n = 0;
 
-% test
+%% test
 for test_data_i = 1:TEST_DATA_N
     % feedforward
 	layers_associates(1).y = transpose( TEST_IN(test_data_i, :) );
@@ -32,6 +32,6 @@ for test_data_i = 1:TEST_DATA_N
     end
 end
 
-% output
+%% output
 disp( ['accuracy: ' num2str(correct_n / TEST_DATA_N * 100), '%'] );
 clear;
