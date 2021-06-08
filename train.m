@@ -15,6 +15,7 @@ end
 layers_associates(LAYERS_N, 1) = layer_associates;
 
 %% train
+tic;
 for train_round_i = 1:nn.TRAIN_ROUNDS_N
     for mini_batch_i = 1:(TRAIN_DATA_N / nn.MINI_BATCH_LENGTH)
         for l_i = 2:LAYERS_N
@@ -53,6 +54,8 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
         end
     end
 end
+t = toc;
+disp( ['cpu time: ' num2str(t)] );
 
 %% output
 save('trained_parameters', 'layers');
