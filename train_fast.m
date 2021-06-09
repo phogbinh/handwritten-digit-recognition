@@ -1,6 +1,5 @@
 %% input
 TRAIN_DATA = load('mnist_train.csv');
-TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
 TRAIN_IN = normalized_grayscale( TRAIN_DATA(:, 2:785) );
 TRAIN_OU = TRAIN_DATA(:, 1);
 clear TRAIN_DATA;
@@ -12,7 +11,6 @@ b4 = readmatrix('b4');
 w2 = readmatrix('w2');
 w3 = readmatrix('w3');
 w4 = readmatrix('w4');
-MINI_BATCH_LEARNING_RATE = nn.LEARNING_RATE / nn.MINI_BATCH_LENGTH;
 
 %% train
 tic;
@@ -22,8 +20,8 @@ dcdb_cum4 = zeros( size(b4) );
 dcdw_cum2 = zeros( size(w2) );
 dcdw_cum3 = zeros( size(w3) );
 dcdw_cum4 = zeros( size(w4) );
-for train_round_i = 1:nn.TRAIN_ROUNDS_N
-    for mini_batch_i = 1:(TRAIN_DATA_N / nn.MINI_BATCH_LENGTH)
+for train_round_i = 1:50
+    for mini_batch_i = 1:6000
         % initialize -- parallelable
         dcdb_cum2(:) = 0;
         dcdb_cum3(:) = 0;
@@ -32,8 +30,8 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
         dcdw_cum3(:) = 0;
         dcdw_cum4(:) = 0;
 
-        start_i = (mini_batch_i - 1) * nn.MINI_BATCH_LENGTH + 1;
-        end_i = start_i + nn.MINI_BATCH_LENGTH - 1;
+        start_i = (mini_batch_i - 1) * 10 + 1;
+        end_i = start_i + 10 - 1;
         for train_data_i = start_i:end_i
             desired_output_layer = one_hot_vector( TRAIN_OU(train_data_i) );
 
@@ -64,12 +62,12 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
         end
 
         % update -- parallelable
-        b2 = b2 - dcdb_cum2 * MINI_BATCH_LEARNING_RATE;
-        b3 = b3 - dcdb_cum3 * MINI_BATCH_LEARNING_RATE;
-        b4 = b4 - dcdb_cum4 * MINI_BATCH_LEARNING_RATE;
-        w2 = w2 - dcdw_cum2 * MINI_BATCH_LEARNING_RATE;
-        w3 = w3 - dcdw_cum3 * MINI_BATCH_LEARNING_RATE;
-        w4 = w4 - dcdw_cum4 * MINI_BATCH_LEARNING_RATE;
+        b2 = b2 - dcdb_cum2 * 0.0006;
+        b3 = b3 - dcdb_cum3 * 0.0006;
+        b4 = b4 - dcdb_cum4 * 0.0006;
+        w2 = w2 - dcdw_cum2 * 0.0006;
+        w3 = w3 - dcdw_cum3 * 0.0006;
+        w4 = w4 - dcdw_cum4 * 0.0006;
     end
 end
 t = toc;
