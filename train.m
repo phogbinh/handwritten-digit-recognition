@@ -49,8 +49,8 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
         end
 
         for l_i = 2:LAYERS_N
-            layers(l_i).b = layers(l_i).b - layers_associates(l_i).dcdb_cum ./ nn.MINI_BATCH_LENGTH * nn.LEARNING_RATE;
-            layers(l_i).w = layers(l_i).w - layers_associates(l_i).dcdw_cum ./ nn.MINI_BATCH_LENGTH * nn.LEARNING_RATE;
+            layers(l_i).b = layers(l_i).b - layers_associates(l_i).dcdb_cum / nn.MINI_BATCH_LENGTH * nn.LEARNING_RATE;
+            layers(l_i).w = layers(l_i).w - layers_associates(l_i).dcdw_cum / nn.MINI_BATCH_LENGTH * nn.LEARNING_RATE;
         end
     end
 end
