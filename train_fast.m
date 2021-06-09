@@ -18,7 +18,7 @@ MINI_BATCH_LEARNING_RATE = nn.LEARNING_RATE / nn.MINI_BATCH_LENGTH;
 tic;
 for train_round_i = 1:nn.TRAIN_ROUNDS_N
     for mini_batch_i = 1:(TRAIN_DATA_N / nn.MINI_BATCH_LENGTH)
-        % initialize
+        % initialize -- parallelable
         dcdb_cum2 = zeros( size( b2 ) );
         dcdb_cum3 = zeros( size( b3 ) );
         dcdb_cum4 = zeros( size( b4 ) );
@@ -31,7 +31,7 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
         for train_data_i = start_i:end_i
             desired_output_layer = one_hot_vector( TRAIN_OU(train_data_i) );
 
-            % feedforward
+            % feedforward -- sequential required
             y1 = transpose( TRAIN_IN(train_data_i, :) );
             z2 = w2 * y1 + b2;
             y2 = f( z2 );
@@ -40,7 +40,7 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
             z4 = w4 * y3 + b4;
             y4 = f( z4 );
 
-            % backpropagation
+            % backpropagation -- sequential required
             dcdb = ( 2 * ( y4 - desired_output_layer ) ) .* dfdz( z4 );
             dcdw = dcdb * transpose( y3 );
             dcdb_cum4 = dcdb_cum4 + dcdb;
@@ -57,7 +57,7 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
             dcdw_cum2 = dcdw_cum2 + dcdw;
         end
 
-        % update
+        % update -- parallelable
         b2 = b2 - dcdb_cum2 * MINI_BATCH_LEARNING_RATE;
         b3 = b3 - dcdb_cum3 * MINI_BATCH_LEARNING_RATE;
         b4 = b4 - dcdb_cum4 * MINI_BATCH_LEARNING_RATE;
