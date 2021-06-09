@@ -16,15 +16,21 @@ MINI_BATCH_LEARNING_RATE = nn.LEARNING_RATE / nn.MINI_BATCH_LENGTH;
 
 %% train
 tic;
+dcdb_cum2 = zeros( size(b2) );
+dcdb_cum3 = zeros( size(b3) );
+dcdb_cum4 = zeros( size(b4) );
+dcdw_cum2 = zeros( size(w2) );
+dcdw_cum3 = zeros( size(w3) );
+dcdw_cum4 = zeros( size(w4) );
 for train_round_i = 1:nn.TRAIN_ROUNDS_N
     for mini_batch_i = 1:(TRAIN_DATA_N / nn.MINI_BATCH_LENGTH)
         % initialize -- parallelable
-        dcdb_cum2 = zeros( size( b2 ) );
-        dcdb_cum3 = zeros( size( b3 ) );
-        dcdb_cum4 = zeros( size( b4 ) );
-        dcdw_cum2 = zeros( size( w2 ) );
-        dcdw_cum3 = zeros( size( w3 ) );
-        dcdw_cum4 = zeros( size( w4 ) );
+        dcdb_cum2(:) = 0;
+        dcdb_cum3(:) = 0;
+        dcdb_cum4(:) = 0;
+        dcdw_cum2(:) = 0;
+        dcdw_cum3(:) = 0;
+        dcdw_cum4(:) = 0;
 
         start_i = (mini_batch_i - 1) * nn.MINI_BATCH_LENGTH + 1;
         end_i = start_i + nn.MINI_BATCH_LENGTH - 1;
