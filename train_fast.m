@@ -4,9 +4,6 @@ TRAIN_DATA_N = numel( TRAIN_DATA(:, 1) );
 TRAIN_IN = normalized_grayscale( TRAIN_DATA(:, 2:785) );
 TRAIN_OU = TRAIN_DATA(:, 1);
 clear TRAIN_DATA;
-LAYERS_NEURONS_N = readmatrix('architect');
-LAYERS_N = numel( LAYERS_NEURONS_N(:, 1) );
-clear LAYERS_NEURONS_N;
 % b's
 b2 = readmatrix('b2');
 b3 = readmatrix('b3');
@@ -73,7 +70,7 @@ t = toc;
 disp( ['cpu time: ' num2str(t)] );
 
 %% output
-layers(LAYERS_N, 1) = layer;
+layers(4, 1) = layer;
 % b's
 layers(2).b = b2;
 layers(3).b = b3;
