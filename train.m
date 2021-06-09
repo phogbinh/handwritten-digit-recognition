@@ -55,7 +55,7 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
     end
 end
 t = toc;
-disp( ['cpu time: ' num2str(t)] );
+disp( ['computational time: ' num2str(t)] );
 
 %% output
 save('trained_parameters', 'layers');
