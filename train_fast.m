@@ -19,20 +19,25 @@ tic;
 for train_round_i = 1:nn.TRAIN_ROUNDS_N
     for mini_batch_i = 1:(TRAIN_DATA_N / nn.MINI_BATCH_LENGTH)
         % initialize -- parallelable
-        dcdb_cum2 = zeros( size( b2 ) );
-        dcdb_cum3 = zeros( size( b3 ) );
-        dcdb_cum4 = zeros( size( b4 ) );
-        dcdw_cum2 = zeros( size( w2 ) );
-        dcdw_cum3 = zeros( size( w3 ) );
-        dcdw_cum4 = zeros( size( w4 ) );
-
         start_i = (mini_batch_i - 1) * nn.MINI_BATCH_LENGTH + 1;
         end_i = start_i + nn.MINI_BATCH_LENGTH - 1;
-        for train_data_i = start_i:end_i
-            desired_output_layer = one_hot_vector( TRAIN_OU(train_data_i) );
+
+        PAGES_N = end_i - start_i + 1;
+        DCDB2 = zeros( [47 1 PAGES_N] );
+        DCDB3 = zeros( [53 1 PAGES_N] );
+        DCDB4 = zeros( [10 1 PAGES_N] );
+        DCDW2 = zeros( [47 784 PAGES_N] );
+        DCDW3 = zeros( [53 47 PAGES_N] );
+        DCDW4 = zeros( [10 53 PAGES_N] );
+        
+        train_in = TRAIN_IN(start_i:end_i, :);
+        train_ou = TRAIN_OU(start_i:end_i);
+        
+        parfor page_i = 1:PAGES_N
+            desired_output_layer = one_hot_vector( train_ou(page_i) );
 
             % feedforward -- sequential required
-            y1 = transpose( TRAIN_IN(train_data_i, :) );
+            y1 = transpose( train_in(page_i, :) );
             z2 = w2 * y1 + b2;
             y2 = f( z2 );
             z3 = w3 * y2 + b3;
@@ -42,28 +47,25 @@ for train_round_i = 1:nn.TRAIN_ROUNDS_N
 
             % backpropagation -- sequential required
             dcdb = ( 2 * ( y4 - desired_output_layer ) ) .* dfdz( z4 );
-            dcdw = dcdb * transpose( y3 );
-            dcdb_cum4 = dcdb_cum4 + dcdb;
-            dcdw_cum4 = dcdw_cum4 + dcdw;
+            DCDB4(:, :, page_i) = dcdb;
+            DCDW4(:, :, page_i) = dcdb * transpose( y3 );
             
             dcdb = ( transpose( w4 ) * dcdb ) .* dfdz( z3 );
-            dcdw = dcdb * transpose( y2 );
-            dcdb_cum3 = dcdb_cum3 + dcdb;
-            dcdw_cum3 = dcdw_cum3 + dcdw;
+            DCDB3(:, :, page_i) = dcdb;
+            DCDW3(:, :, page_i) = dcdb * transpose( y2 );
             
             dcdb = ( transpose( w3 ) * dcdb ) .* dfdz( z2 );
-            dcdw = dcdb * transpose( y1 );
-            dcdb_cum2 = dcdb_cum2 + dcdb;
-            dcdw_cum2 = dcdw_cum2 + dcdw;
+            DCDB2(:, :, page_i) = dcdb;
+            DCDW2(:, :, page_i) = dcdb * transpose( y1 );
         end
 
         % update -- parallelable
-        b2 = b2 - dcdb_cum2 * MINI_BATCH_LEARNING_RATE;
-        b3 = b3 - dcdb_cum3 * MINI_BATCH_LEARNING_RATE;
-        b4 = b4 - dcdb_cum4 * MINI_BATCH_LEARNING_RATE;
-        w2 = w2 - dcdw_cum2 * MINI_BATCH_LEARNING_RATE;
-        w3 = w3 - dcdw_cum3 * MINI_BATCH_LEARNING_RATE;
-        w4 = w4 - dcdw_cum4 * MINI_BATCH_LEARNING_RATE;
+        b2 = b2 - sum(DCDB2, 3) * MINI_BATCH_LEARNING_RATE;
+        b3 = b3 - sum(DCDB3, 3) * MINI_BATCH_LEARNING_RATE;
+        b4 = b4 - sum(DCDB4, 3) * MINI_BATCH_LEARNING_RATE;
+        w2 = w2 - sum(DCDW2, 3) * MINI_BATCH_LEARNING_RATE;
+        w3 = w3 - sum(DCDW3, 3) * MINI_BATCH_LEARNING_RATE;
+        w4 = w4 - sum(DCDW4, 3) * MINI_BATCH_LEARNING_RATE;
     end
 end
 t = toc;
