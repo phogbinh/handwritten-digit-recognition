@@ -14,13 +14,18 @@ w4 = readmatrix('w4');
 
 %% train
 tic;
+
+% initialize -- parallelable
 dcdb_cum2 = zeros( size(b2) );
 dcdb_cum3 = zeros( size(b3) );
 dcdb_cum4 = zeros( size(b4) );
 dcdw_cum2 = zeros( size(w2) );
 dcdw_cum3 = zeros( size(w3) );
 dcdw_cum4 = zeros( size(w4) );
+
+% params update on each iteration -- sequential required
 for train_round_i = 1:50
+    % params update on each iteration -- sequential required
     for mini_batch_i = 1:6000
         % initialize -- parallelable
         dcdb_cum2(:) = 0;
@@ -32,6 +37,9 @@ for train_round_i = 1:50
 
         start_i = (mini_batch_i - 1) * 10 + 1;
         end_i = start_i + 10 - 1;
+        
+        % gradient cumulation on each iteration -- parallelable with race
+        % condition
         for train_data_i = start_i:end_i
             desired_output_layer = one_hot_vector( TRAIN_OU(train_data_i) );
 
@@ -70,6 +78,7 @@ for train_round_i = 1:50
         w4 = w4 - dcdw_cum4 * 0.0006;
     end
 end
+
 t = toc;
 disp( ['computational time: ' num2str(t)] );
 
