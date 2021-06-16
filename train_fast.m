@@ -1,16 +1,16 @@
 %% input
 TRAIN_DATA = load('mnist_train.csv');
-TRAIN_IN = normalized_grayscale( TRAIN_DATA(:, 2:785) );
-TRAIN_OU = TRAIN_DATA(:, 1);
+TRAIN_IN = gpuArray( normalized_grayscale( TRAIN_DATA(:, 2:785) ) );
+TRAIN_OU = gpuArray( TRAIN_DATA(:, 1) );
 clear TRAIN_DATA;
 % b's
-b2 = readmatrix('b2');
-b3 = readmatrix('b3');
-b4 = readmatrix('b4');
+b2 = gpuArray( readmatrix('b2') );
+b3 = gpuArray( readmatrix('b3') );
+b4 = gpuArray( readmatrix('b4') );
 % w's
-w2 = readmatrix('w2');
-w3 = readmatrix('w3');
-w4 = readmatrix('w4');
+w2 = gpuArray( readmatrix('w2') );
+w3 = gpuArray( readmatrix('w3') );
+w4 = gpuArray( readmatrix('w4') );
 
 %% train
 tic;
